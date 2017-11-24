@@ -2,6 +2,7 @@ import urllib.request as www
 import json
 
 
+
 class RobotMoneyReaper:
     """
         This robot repear is looking for stocks, in order to identify potecial stocks that could be worth
@@ -14,7 +15,7 @@ class RobotMoneyReaper:
 
     def __init__(self,stock):
         self.__stock = None
-        self.__apiKey = 'U43HU9BT9HYU3O08'
+        self.__apiKey = open('apikey.key','r').read()
         self.__url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=<Symbol>&apikey=<ApiKey>"
         self.setStock(stock)
 
