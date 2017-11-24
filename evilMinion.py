@@ -65,25 +65,25 @@ class EvilMinion(threading.Thread):
         time.sleep(2)
         while True:
 
-            try:
-                self.__amount = self.__reaper.getStockRealtime()
+            #try:
+            self.__amount = self.__reaper.getStockRealtime()
 
-                if self.__amount is not None:
-                    if self.__amount > 0:
-                        localtime = time.asctime(time.localtime(time.time()))
-                        text = ' ' * 10 + ' '+ localtime + ' '+'♦' * 6+' ' + self.__wallet.getName()+ ' ᴕ previous R$ %.2f Vs current R$ %.2f' % (self.__dots.getLastPrice() , self.__amount)
+            if self.__amount is not None:
+                if self.__amount > 0:
+                    localtime = time.asctime(time.localtime(time.time()))
+                    text = ' ' * 10 + ' '+ localtime + ' '+'♦' * 6+' ' + self.__wallet.getName()+ ' ᴕ previous R$ %.2f Vs current R$ %.2f' % (self.__dots.getLastPrice() , self.__amount)
 
-                        if self.__amount < self.__dots.getLastPrice():
-                            if self.getFlag() == 1:
-                                text += self.__wallet.buyStock(self.__amount)
-                                self.__dots.setNewDot(self.__amount)
-                        elif self.__amount > self.__dots.getLastPrice():
-                            if self.getFlag() in [1,2]:
-                                text += self.__wallet.sellStock(self.__amount)
-                                self.__dots.setNewDot(self.__amount)
+                    if self.__amount < self.__dots.getLastPrice() and self.__wallet.getMoney() > 0.0:
+                        if self.getFlag() == 1:
+                            text += self.__wallet.buyStock(self.__amount)
+                            self.__dots.setNewDot(self.__amount)
+                    elif self.__amount > self.__dots.getLastPrice() and self.__wallet.getPapers() > 0.0:
+                        if self.getFlag() in [1,2]:
+                            text += self.__wallet.sellStock(self.__amount)
+                            self.__dots.setNewDot(self.__amount)
 
-                        print(text)
-            except Exception as e:
-                print(' ' * 4, "ϟϟϟϟ", e, '\n', self.__wallet.getName(), 'something is wrong here [EvilMinion.run]!')
+                    print(text)
+            #except Exception as e:
+                #print(' ' * 4, "ϟϟϟϟ", e, '\n', self.__wallet.getName(), 'something is wrong here [EvilMinion.run]!')
 
             time.sleep(60)

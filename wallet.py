@@ -23,7 +23,7 @@ class Wallet:
         return self.__name
 
     def setMoney(self, value):
-        self.__money = value
+        self.__money = value *1.0
 
     def getMoney(self):
         return self.__money
@@ -43,6 +43,7 @@ class Wallet:
 
     def buyStock(self, amount):
         try:
+            text = ''
             if self.getMoney() > 0.0:
                 aux = self.getMoney()
                 self.setPapers(self.getMoney() / (amount*1.0))
@@ -53,9 +54,12 @@ class Wallet:
         except Exception as e:
             print(' ' * 4, "ϟϟϟϟ", e , '\n[wallet buyStock = ', self.getName(),']')
             return '.....:.'
+        finally:
+            return text
 
     def sellStock(self, amount):
         try:
+            text = ''
             if self.getPapers() > 0.0:
                 aux = self.getPapers()
                 self.setMoney(self.getPapers() * (amount*1.0))
@@ -66,6 +70,8 @@ class Wallet:
         except Exception as e:
             print(' ' * 4, "ϟϟϟϟ", e, '\n[wallet sellStock = ', self.getName(), ']')
             return '.....:.'
+        finally:
+            return text
 
 
     def getCurrentPortifolio(self):
