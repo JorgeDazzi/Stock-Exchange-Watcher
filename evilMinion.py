@@ -12,7 +12,7 @@ class EvilMinion(threading.Thread):
     def __init__(self, wallet, counter):
         threading.Thread.__init__(self)
 
-        self.__flag = 1  # flags >> 1=compra&venda / 2=venda somente / 0=faça porra nenhuma
+        self.__flag = 1  # flags >> 1=compra&venda / 2=venda somente / 0=faça nada
         self.__minionID = None
         self.__wallet = None
         self.__reaper = None
